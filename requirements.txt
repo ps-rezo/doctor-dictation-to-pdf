@@ -2,3 +2,4 @@ streamlit
 openai
 fpdf
 python-dotenv
+streamlit-audio-recorder
