@@ -10,7 +10,27 @@ openai.api_key = st.secrets.get("OPENAI_API_KEY") or "your-openai-api-key"
 st.set_page_config(page_title="Doctor Dictation to PDF", layout="centered")
 st.title("🩺 Doctor Dictation to PDF Report")
 
-# --- Upload Audio File ---
+# --- Record Audio File ---
+from streamlit_audio_recorder import audio_recorder
+
+st.header("🎤 0. Record Doctor Dictation (Optional)")
+
+audio_bytes = audio_recorder(pause_threshold=1.0)
+
+if audio_bytes:
+    st.audio(audio_bytes, format="audio/wav")
+    with open("doctor_note.wav", "wb") as f:
+        f.write(audio_bytes)
+
+    with open("doctor_note.wav", "rb") as audio_file:
+        transcript = openai.Audio.transcribe("whisper-1", audio_file)
+        transcript_text = transcript["text"]
+
+    st.success("✅ Transcription complete!")
+    st.text_area("Transcript (editable)", value=transcript_text, height=200)
+
+
+# ---  or Upload Audio File ---
 st.header("1. Upload Doctor Voice Note")
 audio_file = st.file_uploader("Upload an audio file (MP3/WAV)", type=["mp3", "wav"])
 
