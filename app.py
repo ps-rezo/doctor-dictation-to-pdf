@@ -11,23 +11,23 @@ st.set_page_config(page_title="Doctor Dictation to PDF", layout="centered")
 st.title("🩺 Doctor Dictation to PDF Report")
 
 # --- Record Audio File ---
-from streamlit_audio_recorder import audio_recorder
+##from streamlit_audio_recorder import audio_recorder
 
-st.header("🎤 0. Record Doctor Dictation (Optional)")
+#st.header("🎤 0. Record Doctor Dictation (Optional)")
 
-audio_bytes = audio_recorder(pause_threshold=1.0)
+#audio_bytes = audio_recorder(pause_threshold=1.0)
 
-if audio_bytes:
-    st.audio(audio_bytes, format="audio/wav")
-    with open("doctor_note.wav", "wb") as f:
-        f.write(audio_bytes)
+#if audio_bytes:
+#    st.audio(audio_bytes, format="audio/wav")
+#    with open("doctor_note.wav", "wb") as f:
+#        f.write(audio_bytes)
 
-    with open("doctor_note.wav", "rb") as audio_file:
-        transcript = openai.Audio.transcribe("whisper-1", audio_file)
-        transcript_text = transcript["text"]
+ #   with open("doctor_note.wav", "rb") as audio_file:
+ #       transcript = openai.Audio.transcribe("whisper-1", audio_file)
+ #       transcript_text = transcript["text"]
 
-    st.success("✅ Transcription complete!")
-    st.text_area("Transcript (editable)", value=transcript_text, height=200)
+ #   st.success("✅ Transcription complete!")
+ #   st.text_area("Transcript (editable)", value=transcript_text, height=200)
 
 
 # ---  or Upload Audio File ---
